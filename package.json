@@ -1,0 +1,42 @@
+{
+    "name": "shanshui",
+    "description": "Generate mountain and water paintings",
+    "version": "0.0.1",
+    "author": {
+        "name": "Zac Anger",
+        "email": "zac@zacanger.com",
+        "url": "https://zacanger.com"
+    },
+    "license": "MIT",
+    "main": "index.js",
+    "scripts": {
+        "test": "npm run test:lint",
+        "test:lint": "standard",
+        "preversion": "npm t && sortpack"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    },
+    "bin": "./index.js",
+    "homepage": "https://github.com/zacanger/shanshui#readme",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zacanger/shanshui.git"
+    },
+    "bugs": "https://github.com/zacanger/shanshui/issues",
+    "keywords": [
+        "foo",
+        ""
+    ],
+    "dependencies": {
+        "canvas": "2.9.3"
+    },
+    "funding": {
+        "type": "ko-fi",
+        "url": "https://ko-fi.com/zacanger"
+    },
+    "devDependencies": {
+        "sortpack": "2.3.0",
+        "standard": "17.0.0"
+    }
+}
