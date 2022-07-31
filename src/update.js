@@ -2,20 +2,25 @@ import { randChoice } from './utils'
 import { water } from './water'
 
 export class Update {
-  mouseX = 0
-  mouseY = 0
-  #onMouseUpdate (e) {
+  constructor (MEM, mountPlanner, mount, Noise, arch) {
+    document.addEventListener('mousemove', (ev) => this.onMouseUpdate(ev), false)
+    document.addEventListener('mouseenter', (ev) => this.onMouseUpdate(ev), false)
+
+    this.mouseX = 0
+    this.mouseY = 0
+    this.MEM = MEM
+    this.mountPlanner = mountPlanner
+    this.mount = mount
+    this.Noise = Noise
+    this.arch = arch
+  }
+
+  onMouseUpdate (e) {
     this.mouseX = e.pageX
     this.mouseY = e.pageY
   }
 
-  constructor (MEM, mountPlanner,
-    mount, Noise, arch) {
-    document.addEventListener('mousemove', (ev) => this.onMouseUpdate(ev), false)
-    document.addEventListener('mouseenter', (ev) => this.onMouseUpdate(ev), false)
-  }
-
-  #add (nch) {
+  add (nch) {
     if (nch.canv.includes('NaN')) {
       console.log('gotcha:')
       console.log(nch.tag)
@@ -47,7 +52,6 @@ export class Update {
 
   chunkloader (xmin, xmax) {
     while (xmax > this.MEM.xmax - this.MEM.cwid || xmin < this.MEM.xmin + this.MEM.cwid) {
-      console.log('generating new chunk...')
 
       let plan
       if (xmax > this.MEM.xmax - this.MEM.cwid) {

@@ -83,7 +83,7 @@ export class Mount {
     return ret ? ftlist : canv
   }
 
-  #vegetate (treeFunc, growthRule, proofRule, ptlist, canv) {
+  vegetate (treeFunc, growthRule, proofRule, ptlist, canv) {
     const veglist = []
     for (let i = 0; i < ptlist.length; i += 1) {
       for (let j = 0; j < ptlist[i].length; j += 1) {
@@ -436,7 +436,7 @@ export class Mount {
     return canv
   }
 
-  #bound (plist) {
+  bound (plist) {
     let xmin
     let xmax
     let ymin

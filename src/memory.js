@@ -1,12 +1,14 @@
 export class Memory {
-  canv = ''
-  chunks = []
-  xmin = 0
-  xmax = 0
-  cwid = 512
-  cursx = 0
-  lasttick = 0
-  windx = 3000
-  windy = 800
-  planmtx = []
+  constructor () {
+    this.canv = ''
+    this.chunks = []
+    this.xmin = 0
+    this.xmax = 0
+    this.cwid = 512
+    this.cursx = 0
+    this.lasttick = 0
+    this.windx = 3000
+    this.windy = 800
+    this.planmtx = []
+  }
 }

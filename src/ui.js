@@ -2,6 +2,9 @@ export class UI {
   constructor (MEM, update) {
     this.update = update
     this.MEM = MEM
+    this.lastScrollX = 0
+    this.pFrame = 0
+    this.btnHoverCol = 'rgba(0,0,0,0.1)'
   }
 
   xcroll (v) {
@@ -58,8 +61,6 @@ export class UI {
     document.getElementById(id).innerHTML = v === '' || v === b ? a : b
   }
 
-  lastScrollX = 0
-  pFrame = 0
   present () {
     const currScrollX = window.scrollX
     const step = 1
@@ -80,6 +81,4 @@ export class UI {
     window.location.href = u + '?seed=' + s
     // window.location.reload(true)
   }
-
-  btnHoverCol = 'rgba(0,0,0,0.1)'
 }

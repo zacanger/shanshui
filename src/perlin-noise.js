@@ -1,27 +1,25 @@
 // https://raw.githubusercontent.com/processing/p5.js/master/src/math/noise.js
 export class PerlinNoise {
-  #PERLIN_YWRAPB = 4
-  #PERLIN_YWRAP = 1 << this.PERLIN_YWRAPB
-  #PERLIN_ZWRAPB = 8
-  #PERLIN_ZWRAP = 1 << this.PERLIN_ZWRAPB
-  // 4095
-  #PERLIN_SIZE = (1 << 12) - 1
-  #perlin_octaves = 4
-  #perlin_amp_falloff = 0.5
-
   constructor (rng) {
     this.rng = rng
+    this.PERLIN_YWRAPB = 4
+    this.PERLIN_YWRAP = 1 << this.PERLIN_YWRAPB
+    this.PERLIN_ZWRAPB = 8
+    this.PERLIN_ZWRAP = 1 << this.PERLIN_ZWRAPB
+    // 4095
+    this.PERLIN_SIZE = (1 << 12) - 1
+    this.perlin_octaves = 4
+    this.perlin_amp_falloff = 0.5
+    this.perlin = InitializePerlinArray(this.PERLIN_SIZE, () => this.rng.random())
   }
 
   // Returns a cosine with:
   // - frequency: 1/2
   // - phase offset: pi
   // - rescaled to [0,1]
-  #scaled_cosine (i) {
+  scaled_cosine (i) {
     return 0.5 * (1 - Math.cos(i * Math.PI))
   }
-
-  #perlin = InitializePerlinArray(this.PERLIN_SIZE, () => this.rng.random())
 
   // Returns a random valued between [0,1]
   noise (x, y = 0, z = 0) {
@@ -109,15 +107,13 @@ function InitializePerlinArray (size, rng) {
 
 // https://en.wikipedia.org/wiki/Linear_congruential_generator
 class LinearCongruentialGenerator {
-  #m = 4294967296
-  #a = 1664525
-  #c = 1013904223
-  #seed
-  #z
   constructor (rng, seedVal) {
     const seed = (seedVal || rng.next() * this.m) >>> 0
     this.seed = seed
     this.z = seed
+    this.m = 4294967296
+    this.a = 1664525
+    this.c = 1013904223
   }
 
   // Returns a value from [0,1]

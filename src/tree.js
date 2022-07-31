@@ -93,7 +93,7 @@ export class Tree {
       )
     }
     return canv
-  };
+  }
 
   tree03 (x, y, args = {}) {
     const {
@@ -304,7 +304,7 @@ export class Tree {
     return canv
   }
 
-  #bark (x, y, wid, ang) {
+  bark (x, y, wid, ang) {
     const len = 10 + 10 * Math.random()
     const noi = 0.5
     const fun = (x) => x <= 1
@@ -586,7 +586,7 @@ export class Tree {
     return canv
   }
 
-  #fracTree (xoff, yoff, dep, args = {}, txcanv, twcanv) {
+  fracTree (xoff, yoff, dep, args = {}, txcanv, twcanv) {
     const {
       hei = 300,
       wid = 5,
@@ -777,7 +777,7 @@ export class Tree {
     return canv
   }
 
-  #fracTree2 (xoff, yoff, dep, args = {}) {
+  fracTree2 (xoff, yoff, dep, args = {}) {
     const {
       ang = -Math.PI / 2,
       len = 15,

@@ -4,7 +4,7 @@ export class MountPlanner {
     this.MEM = MEM
   }
 
-  #locmax (x, y, f, r) {
+  locmax (x, y, f, r) {
     const z0 = f(x, y)
     if (z0 <= 0.3) {
       return false
@@ -21,7 +21,7 @@ export class MountPlanner {
     return true
   }
 
-  #chadd (reg, r, mind = 10) {
+  chadd (reg, r, mind = 10) {
     for (let k = 0; k < reg.length; k++) {
       if (Math.abs(reg[k].x - r.x) < mind) {
         return false

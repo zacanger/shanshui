@@ -1,8 +1,10 @@
 export class UniformRNG {
-  #s = 1234
-  #p = 999979
-  #q = 999983
-  #m = this.p * this.q
+  constructor () {
+    this.s = 1234
+    this.p = 999979
+    this.q = 999983
+    this.m = this.p * this.q
+  }
 
   hash (x) {
     const y = window.btoa(JSON.stringify(x))
@@ -23,7 +25,6 @@ export class UniformRNG {
       y = (this.hash(x) + z) % this.m
     }
     this.s = y
-    console.log(['int seed', this.s])
     for (let i = 0; i < 10; i++) {
       this.next()
     }

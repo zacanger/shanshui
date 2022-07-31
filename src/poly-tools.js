@@ -2,6 +2,12 @@ import { Area, SegmentLengths, ToLine } from './geometry-utils'
 import { AssertPoint, AssertTriangle } from './point'
 
 export class PolyTools {
+  constructor () {
+    this.area = 100
+    this.convex = false
+    this.optimize = true
+  }
+
   midPt (points) {
     const point = points.reduce(
       (acc, v) =>
@@ -11,14 +17,14 @@ export class PolyTools {
     return point
   }
 
-  #sliverRatio (plist) {
+  sliverRatio (plist) {
     AssertTriangle(plist)
     const A = Area(plist)
     const P = SegmentLengths(plist).reduce((m, n) => m + n, 0)
     return A / P
   }
 
-  #shatter (plist, maxArea) {
+  shatter (plist, maxArea) {
     if (plist.length === 0) {
       return []
     }
@@ -48,7 +54,7 @@ export class PolyTools {
       )
   }
 
-  #inBounds (p, ln) {
+  inBounds (p, ln) {
     // non-inclusive
     return (
       Math.min(ln[0][0], ln[1][0]) <= p[0] &&
@@ -58,7 +64,7 @@ export class PolyTools {
     )
   }
 
-  #intersect (ln0, ln1) {
+  intersect (ln0, ln1) {
     const le0 = ToLine(ln0[0], ln0[1])
     const le1 = ToLine(ln1[0], ln1[1])
     const dSlope = le0[0] - le1[0]
@@ -73,7 +79,7 @@ export class PolyTools {
     return undefined
   }
 
-  #ptInPoly (pt, plist) {
+  ptInPoly (pt, plist) {
     let scount = 0
     for (let i = 0; i < plist.length; i++) {
       const np = plist[i !== plist.length - 1 ? i + 1 : 0]
@@ -88,7 +94,7 @@ export class PolyTools {
     return scount % 2 === 1
   }
 
-  #lnInPoly (ln, plist) {
+  lnInPoly (ln, plist) {
     const lnc = [[0, 0], [0, 0]]
     const ep = 0.01
 
@@ -112,7 +118,7 @@ export class PolyTools {
     return true
   }
 
-  #bestEar (plist) {
+  bestEar (plist) {
     const cuts = []
     for (let i = 0; i < plist.length; i++) {
       const pt = plist[i]
@@ -139,10 +145,6 @@ export class PolyTools {
 
     return best
   }
-
-  area = 100
-  convex = false
-  optimize = true
 
   triangulate (plist, args = {}) {
     const {
