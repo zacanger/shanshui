@@ -1,5 +1,5 @@
 {
-  "name": "shanshui",
+  "name": "shanshui-cli",
   "description": "Generate mountain and water paintings",
   "version": "0.1.1",
   "type": "module",
@@ -9,7 +9,9 @@
     "url": "https://zacanger.com"
   },
   "license": "MIT",
-  "bin": "./index.js",
+  "bin": {
+      "shanshui": "./index.js"
+  },
   "scripts": {
     "test": "npm run test:lint",
     "test:lint": "sortpack && standard",
@@ -18,12 +20,12 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "homepage": "https://github.com/zacanger/shanshui#readme",
+  "homepage": "https://github.com/zacanger/shanshui-cli#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/zacanger/shanshui.git"
+    "url": "https://github.com/zacanger/shanshui-cli.git"
   },
-  "bugs": "https://github.com/zacanger/shanshui/issues",
+  "bugs": "https://github.com/zacanger/shanshui-cli/issues",
   "keywords": [
     "shan-shui",
     "painting",
