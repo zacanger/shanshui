@@ -1,7 +1,7 @@
 {
   "name": "shanshui",
   "description": "Generate mountain and water paintings",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "author": {
     "name": "Zac Anger",
@@ -9,7 +9,7 @@
     "url": "https://zacanger.com"
   },
   "license": "MIT",
-  "bin": "index.js",
+  "bin": "./index.js",
   "scripts": {
     "test": "npm run test:lint",
     "test:lint": "sortpack && standard",
@@ -18,7 +18,6 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "bin": "./index.js",
   "homepage": "https://github.com/zacanger/shanshui#readme",
   "repository": {
     "type": "git",
