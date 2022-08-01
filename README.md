@@ -13,9 +13,6 @@ rewrite](https://github.com/admiral-akk/shan-shui-reloaded).
 
 `npm i [-g] shanshui`
 
-See [node-canvas](https://github.com/Automattic/node-canvas) for some
-dependencies you might need.
-
 ## Usage
 
 [LICENSE](./LICENSE.md)

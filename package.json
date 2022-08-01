@@ -30,7 +30,6 @@
     ""
   ],
   "dependencies": {
-    "canvas": "2.9.3"
   },
   "funding": {
     "type": "ko-fi",

@@ -171,24 +171,17 @@ export class Update {
     } catch (e) {
       console.log('not possible')
     }
-    // setTimeout(viewupdate,100)
   }
 
   needupdate () {
     return true
-    // if (this.MEM.xmin < this.MEM.cursx && this.MEM.cursx < this.MEM.xmax - this.MEM.windx) {
-    //     return false;
-    // }
-    // return true;
   }
 
   update () {
-    // console.log("update!")
-
     this.chunkloader(this.MEM.cursx, this.MEM.cursx + this.MEM.windx)
     this.chunkrender(this.MEM.cursx, this.MEM.cursx + this.MEM.windx)
 
-    document.getElementById('BG').innerHTML =
+    const theSvg =
             "<svg id='SVG' xmlns='http://www.w3.org/2000/svg' width='" +
             this.MEM.windx +
             "' height='" +
@@ -201,9 +194,9 @@ export class Update {
             0 +
             ",0)'>" +
             this.MEM.canv +
-            // + "<circle cx='0' cy='0' r='50' stroke='black' fill='red' />"
             '</g></svg>'
 
-    // setTimeout(update,1000);
+    // theSvg is what we want to actually render!!
+    document.getElementById('BG').innerHTML = theSvg
   }
 }
