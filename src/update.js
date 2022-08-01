@@ -12,20 +12,15 @@ export class Update {
 
   add (nch) {
     if (nch.canv.includes('NaN')) {
-      console.log('gotcha:')
-      console.log(nch.tag)
       nch.canv = nch.canv.replace(/NaN/g, -1000)
     }
     if (this.MEM.chunks.length === 0) {
       this.MEM.chunks.push(nch)
-      return
     } else {
       if (nch.y <= this.MEM.chunks[0].y) {
         this.MEM.chunks.unshift(nch)
-        return
       } else if (nch.y >= this.MEM.chunks[this.MEM.chunks.length - 1].y) {
         this.MEM.chunks.push(nch)
-        return
       } else {
         for (let j = 0; j < this.MEM.chunks.length - 1; j++) {
           if (this.MEM.chunks[j].y <= nch.y && nch.y <= this.MEM.chunks[j + 1].y) {
@@ -35,14 +30,10 @@ export class Update {
         }
       }
     }
-    console.log('EH?WTF!')
-    console.log(this.MEM.chunks)
-    console.log(nch)
   }
 
   chunkloader (xmin, xmax) {
     while (xmax > this.MEM.xmax - this.MEM.cwid || xmin < this.MEM.xmin + this.MEM.cwid) {
-
       let plan
       if (xmax > this.MEM.xmax - this.MEM.cwid) {
         plan = this.mountPlanner.mountplanner(this.MEM.xmax, this.MEM.xmax + this.MEM.cwid)
@@ -59,7 +50,6 @@ export class Update {
             x: plan[i].x,
             y: plan[i].y,
             canv: this.mount.mountain(plan[i].x, plan[i].y, i * 2 * Math.random())
-            // {col:function(x){return "rgba(100,100,100,"+(0.5*Math.random()*plan[i].y/MEM.windy)+")"}}),
           })
           this.add({
             tag: plan[i].tag,
@@ -128,11 +118,6 @@ export class Update {
                             "' r='20' stroke='black' fill='green' />"
           })
         }
-        // add ({
-        //   x: plan[i].x,
-        //   y: plan[i].y,
-        //   canv:"<circle cx='"+plan[i].x+"' cy='"+plan[i].y+"' r='20' stroke='black' fill='red' />"
-        // })
       }
     }
   }
@@ -153,18 +138,6 @@ export class Update {
   calcViewBox () {
     const zoom = 1.142
     return '' + this.MEM.cursx + ' 0 ' + this.MEM.windx / zoom + ' ' + this.MEM.windy / zoom
-  }
-
-  viewupdate () {
-    try {
-      document.getElementById('SVG').setAttribute('viewBox', this.calcViewBox())
-    } catch (e) {
-      console.log('not possible')
-    }
-  }
-
-  needupdate () {
-    return true
   }
 
   update () {

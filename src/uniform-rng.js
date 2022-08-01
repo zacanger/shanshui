@@ -7,7 +7,7 @@ export class UniformRNG {
   }
 
   hash (x) {
-    const y = window.btoa(JSON.stringify(x))
+    const y = btoa(JSON.stringify(x))
     let z = 0
     for (let i = 0; i < y.length; i++) {
       z += y.charCodeAt(i) * Math.pow(128, i)
@@ -37,20 +37,5 @@ export class UniformRNG {
   next () {
     this.s = (this.s * this.s) % this.m
     return this.s / this.m
-  }
-
-  test (sampleCount = 10000000, buckets = 10) {
-    const t0 = Date.now()
-
-    const chart = []
-    for (let i = 0; i < buckets; i++) {
-      chart.push(0)
-    }
-    for (let i = 0; i < sampleCount; i++) {
-      chart[Math.floor(this.next() * buckets)] += 1
-    }
-    console.log(chart)
-    console.log(`Finished in: ${Date.now() - t0}ms`)
-    return chart
   }
 }

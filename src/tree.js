@@ -7,7 +7,7 @@ import {
   normRand,
   poly,
   randChoice,
-  randGaussian,
+  randGaussian
 } from './utils.js'
 
 export class Tree {

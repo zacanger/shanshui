@@ -6,13 +6,4 @@ export class UI {
     this.pFrame = 0
     this.btnHoverCol = 'rgba(0,0,0,0.1)'
   }
-
-  xcroll (v) {
-    this.MEM.cursx += v
-    if (this.update.needupdate()) {
-      this.update.update()
-    } else {
-      this.update.viewupdate()
-    }
-  }
 }

@@ -44,8 +44,6 @@ export class PolyTools {
     try {
       mid = this.midPt([plist[rightMostIndex], plist[nextIndex]])
     } catch (err) {
-      console.log(plist)
-      console.log(err)
       return []
     }
 

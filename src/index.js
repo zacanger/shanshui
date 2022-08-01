@@ -1,4 +1,3 @@
-import { InitializeGlobalVariables } from './global-variables.js'
 import { UniformRNG } from './uniform-rng.js'
 import { PerlinNoise } from './perlin-noise.js'
 import { PolyTools } from './poly-tools.js'
@@ -9,7 +8,6 @@ import { Man } from './man.js'
 import { MountPlanner } from './mount-planner.js'
 import { Memory } from './memory.js'
 import { Update } from './update.js'
-import { UI } from './ui.js'
 
 const rng = new UniformRNG()
 const seed = Date.now().toString()
@@ -24,7 +22,7 @@ const arch = new Arch(perlin, polyTools, man)
 const mount = new Mount(perlin, tree, arch, polyTools)
 const mountPlanner = new MountPlanner(perlin, memory)
 const update = new Update(memory, mountPlanner, mount, perlin, arch)
-const ui = new UI(memory, update)
 
-// We add global variables at the end to ensure that we don't inadvertidly depend on them
-InitializeGlobalVariables(rng, seed, perlin, polyTools, tree, mount, arch, man, mountPlanner, memory, update, ui)
+Math.random = () => rng.random()
+window.MEM = memory
+window.update = () => update.update()
