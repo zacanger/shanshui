@@ -15,4 +15,8 @@ rewrite](https://github.com/admiral-akk/shan-shui-reloaded).
 
 ## Usage
 
+`shanshui foo.svg`
+
+`shanshui` will output an SVG. By default it will be named `shanshui.svg`.
+
 [LICENSE](./LICENSE.md)
