@@ -1,4 +1,4 @@
-import { stroke } from './stroke'
+import { stroke } from './stroke.js'
 
 export function water (xoff, yoff, seed, Noise, args = {}) {
   const { hei = 2, len = 800, clu = 10 } = args

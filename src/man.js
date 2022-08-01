@@ -1,5 +1,5 @@
-import { stroke } from './stroke'
-import { distance, poly, normRand, bezmh } from './utils'
+import { stroke } from './stroke.js'
+import { distance, poly, normRand, bezmh } from './utils.js'
 
 export class Man {
   constructor (Noise, PolyTools) {

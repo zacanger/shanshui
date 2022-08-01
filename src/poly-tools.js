@@ -1,5 +1,5 @@
-import { Area, SegmentLengths, ToLine } from './geometry-utils'
-import { AssertPoint, AssertTriangle } from './point'
+import { Area, SegmentLengths, ToLine } from './geometry-utils.js'
+import { AssertPoint, AssertTriangle } from './point.js'
 
 export class PolyTools {
   constructor () {

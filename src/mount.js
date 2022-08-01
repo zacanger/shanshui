@@ -1,7 +1,7 @@
-import { div } from './div'
-import { stroke } from './stroke'
-import { texture } from './texture'
-import { loopNoise, normRand, poly, randChoice } from './utils'
+import { div } from './div.js'
+import { stroke } from './stroke.js'
+import { texture } from './texture.js'
+import { loopNoise, normRand, poly, randChoice } from './utils.js'
 
 export class Mount {
   constructor (Noise, Tree, Arch, PolyTools) {

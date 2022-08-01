@@ -1,23 +1,13 @@
-import { randChoice } from './utils'
-import { water } from './water'
+import { randChoice } from './utils.js'
+import { water } from './water.js'
 
 export class Update {
   constructor (MEM, mountPlanner, mount, Noise, arch) {
-    document.addEventListener('mousemove', (ev) => this.onMouseUpdate(ev), false)
-    document.addEventListener('mouseenter', (ev) => this.onMouseUpdate(ev), false)
-
-    this.mouseX = 0
-    this.mouseY = 0
     this.MEM = MEM
     this.mountPlanner = mountPlanner
     this.mount = mount
     this.Noise = Noise
     this.arch = arch
-  }
-
-  onMouseUpdate (e) {
-    this.mouseX = e.pageX
-    this.mouseY = e.pageY
   }
 
   add (nch) {

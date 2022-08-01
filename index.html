@@ -1,18 +1,17 @@
 <html>
     <head>
         <title>shan shui</title>
-        <script>var exports = {};</script>
-        <script src="./dist/main.js"></script>
+        <script type="module" src="./src/index.js"></script>
     </head>
     <body style="margin:0">
-        <div id="BG">
-            <script>
-                MEM.lasttick = new Date().getTime();
+        <div id="BG"></div>
+        <script>
+            setTimeout(() => {
                 document
                     .getElementById("BG")
-                    .setAttribute("style", "width:" + MEM.windx + "px");
+                    .setAttribute("style", "width:" + window.MEM.windx + "px");
                 update();
-            </script>
-        </div>
+            }, 500)
+        </script>
     </body>
 </html>

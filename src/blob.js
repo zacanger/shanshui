@@ -1,4 +1,4 @@
-import { loopNoise, poly } from './utils'
+import { loopNoise, poly } from './utils.js'
 
 export const blob = (x, y, args = {}, noise) => {
   const {

@@ -1,4 +1,4 @@
-import { AssertSlopeIntercept } from './point'
+import { AssertSlopeIntercept } from './point.js'
 
 export const Distance = (p0, p1) =>
   Math.sqrt(Math.pow(p0[0] - p1[0], 2) + Math.pow(p0[1] - p1[1], 2))

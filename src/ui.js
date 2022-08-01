@@ -15,14 +15,4 @@ export class UI {
       this.update.viewupdate()
     }
   }
-
-  toggleVisible (id) {
-    const v = document.getElementById(id).style.display === 'none'
-    document.getElementById(id).style.display = v ? 'block' : 'none'
-  }
-
-  toggleText (id, a, b) {
-    const v = document.getElementById(id).innerHTML
-    document.getElementById(id).innerHTML = v === '' || v === b ? a : b
-  }
 }

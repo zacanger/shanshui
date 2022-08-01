@@ -1,7 +1,14 @@
-import { blob } from './blob'
-import { div } from './div'
-import { stroke } from './stroke'
-import { distance, loopNoise, normRand, poly, randChoice, randGaussian } from './utils'
+import { blob } from './blob.js'
+import { div } from './div.js'
+import { stroke } from './stroke.js'
+import {
+  distance,
+  loopNoise,
+  normRand,
+  poly,
+  randChoice,
+  randGaussian,
+} from './utils.js'
 
 export class Tree {
   constructor (Noise, PolyTools) {

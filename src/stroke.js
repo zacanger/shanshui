@@ -1,4 +1,4 @@
-import { poly } from './utils'
+import { poly } from './utils.js'
 
 export function stroke (ptlist, args = {}, noise) {
   const {

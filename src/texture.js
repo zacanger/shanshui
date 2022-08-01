@@ -1,4 +1,4 @@
-import { stroke } from './stroke'
+import { stroke } from './stroke.js'
 
 export function texture (ptlist, args = {}, noise) {
   const {

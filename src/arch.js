@@ -1,7 +1,7 @@
-import { div } from './div'
-import { stroke } from './stroke'
-import { texture } from './texture'
-import { normRand, poly, randChoice, wtrand } from './utils'
+import { div } from './div.js'
+import { stroke } from './stroke.js'
+import { texture } from './texture.js'
+import { normRand, poly, randChoice, wtrand } from './utils.js'
 
 export class Arch {
   constructor (Noise, PolyTools, Man) {

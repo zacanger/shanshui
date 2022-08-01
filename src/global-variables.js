@@ -1,8 +1,8 @@
-import { blob } from './blob'
-import { div } from './div'
-import { Distance } from './geometry-utils'
-import { stroke } from './stroke'
-import { texture } from './texture'
+import { blob } from './blob.js'
+import { div } from './div.js'
+import { Distance } from './geometry-utils.js'
+import { stroke } from './stroke.js'
+import { texture } from './texture.js'
 import {
   bezmh,
   loopNoise,
@@ -13,8 +13,8 @@ import {
   randGaussian,
   unNan,
   wtrand
-} from './utils'
-import { water } from './water'
+} from './utils.js'
+import { water } from './water.js'
 
 export function InitializeGlobalVariables (
   rng,

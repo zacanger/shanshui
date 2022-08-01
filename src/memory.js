@@ -6,7 +6,7 @@ export class Memory {
     this.xmax = 0
     this.cwid = 512
     this.cursx = 0
-    this.lasttick = 0
+    this.lasttick = new Date().getTime()
     this.windx = 3000
     this.windy = 800
     this.planmtx = []
