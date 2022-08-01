@@ -150,7 +150,7 @@ export class Update {
             "' height='" +
             this.MEM.windy +
             "' style='mix-blend-mode:multiply;'" +
-            "viewBox = '" +
+            " viewBox = '" +
             this.calcViewBox() +
             "'" +
             "><g id='G' transform='translate(" +
@@ -159,7 +159,6 @@ export class Update {
             this.MEM.canv +
             '</g></svg>'
 
-    // theSvg is what we want to actually render!!
-    document.getElementById('BG').innerHTML = theSvg
+    return theSvg
   }
 }

@@ -9,14 +9,14 @@
     "url": "https://zacanger.com"
   },
   "license": "MIT",
-  "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "test": "npm run test:lint",
     "test:lint": "sortpack && standard",
     "preversion": "npm t"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "bin": "./index.js",
   "homepage": "https://github.com/zacanger/shanshui#readme",
@@ -26,8 +26,10 @@
   },
   "bugs": "https://github.com/zacanger/shanshui/issues",
   "keywords": [
-    "foo",
-    ""
+    "shan-shui",
+    "painting",
+    "art",
+    "chinese"
   ],
   "funding": {
     "type": "ko-fi",

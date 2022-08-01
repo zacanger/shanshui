@@ -24,5 +24,7 @@ const mountPlanner = new MountPlanner(perlin, memory)
 const update = new Update(memory, mountPlanner, mount, perlin, arch)
 
 Math.random = () => rng.random()
-window.MEM = memory
-window.update = () => update.update()
+export default {
+  MEM: memory,
+  update: () => update.update()
+}

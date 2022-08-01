@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-const main = () => {
+import fs from 'fs'
+import app from './src/index.js'
+const destFile = process.argv[2] || 'shanshui.svg'
 
-}
-
-if (!module.parent) {
-  main()
-}
+const svg = app.update()
+fs.writeFileSync(destFile, svg)
