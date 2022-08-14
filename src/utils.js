@@ -1,11 +1,3 @@
-export const unNan = (plist) => {
-  if (typeof plist !== 'object' || plist == null) {
-    return plist || 0
-  } else {
-    return plist.map(unNan)
-  }
-}
-
 export const distance = (p0, p1) =>
   Math.sqrt(Math.pow(p0[0] - p1[0], 2) + Math.pow(p0[1] - p1[1], 2))
 
@@ -37,9 +29,9 @@ export const wtrand = (weightFunction) => {
 
   if (y < weightFunction(x)) {
     return x
-  } else {
-    return wtrand(weightFunction)
   }
+
+  return wtrand(weightFunction)
 }
 
 export const randGaussian = () =>

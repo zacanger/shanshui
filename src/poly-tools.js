@@ -1,5 +1,4 @@
 import { Area, SegmentLengths, ToLine } from './geometry-utils.js'
-import { AssertPoint, AssertTriangle } from './point.js'
 
 export class PolyTools {
   constructor () {
@@ -13,12 +12,10 @@ export class PolyTools {
       (acc, v) =>
         [v[0] / points.length + acc[0], v[1] / points.length + acc[1]],
       [0, 0])
-    AssertPoint(point)
     return point
   }
 
   sliverRatio (plist) {
-    AssertTriangle(plist)
     const A = Area(plist)
     const P = SegmentLengths(plist).reduce((m, n) => m + n, 0)
     return A / P
@@ -28,7 +25,6 @@ export class PolyTools {
     if (plist.length === 0) {
       return []
     }
-    AssertTriangle(plist)
     if (Area(plist) < maxArea) {
       return [plist]
     }

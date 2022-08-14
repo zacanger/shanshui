@@ -14,7 +14,7 @@
   },
   "scripts": {
     "test": "npm run test:lint",
-    "test:lint": "sortpack && standard",
+    "test:lint": "sortpack && standard --fix",
     "preversion": "npm t"
   },
   "engines": {
