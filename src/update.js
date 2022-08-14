@@ -1,5 +1,6 @@
 import { randChoice } from './utils.js'
 import { water } from './water.js'
+import { rand } from './rand.js'
 
 export class Update {
   constructor (MEM, mountPlanner, mount, Noise, arch) {
@@ -49,7 +50,7 @@ export class Update {
             tag: plan[i].tag,
             x: plan[i].x,
             y: plan[i].y,
-            canv: this.mount.mountain(plan[i].x, plan[i].y, i * 2 * Math.random())
+            canv: this.mount.mountain(plan[i].x, plan[i].y, i * 2 * rand())
           })
           this.add({
             tag: plan[i].tag,
@@ -65,11 +66,11 @@ export class Update {
             canv: this.mount.flatMount(
               plan[i].x,
               plan[i].y,
-              2 * Math.random() * Math.PI,
+              2 * rand() * Math.PI,
               {
-                wid: 600 + Math.random() * 400,
+                wid: 600 + rand() * 400,
                 hei: 100,
-                cho: 0.5 + Math.random() * 0.2
+                cho: 0.5 + rand() * 0.2
               }
             )
           })
@@ -78,7 +79,7 @@ export class Update {
             tag: plan[i].tag,
             x: plan[i].x,
             y: plan[i].y,
-            canv: this.mount.distMount(plan[i].x, plan[i].y, Math.random() * 100, {
+            canv: this.mount.distMount(plan[i].x, plan[i].y, rand() * 100, {
               hei: 150,
               len: randChoice([500, 1000, 1500])
             })
@@ -88,7 +89,7 @@ export class Update {
             tag: plan[i].tag,
             x: plan[i].x,
             y: plan[i].y,
-            canv: this.arch.boat01(plan[i].x, plan[i].y, Math.random(), {
+            canv: this.arch.boat01(plan[i].x, plan[i].y, rand(), {
               sca: plan[i].y / 800,
               fli: randChoice([true, false])
             })

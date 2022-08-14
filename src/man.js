@@ -1,5 +1,6 @@
 import { stroke } from './stroke.js'
 import { distance, poly, normRand, bezmh } from './utils.js'
+import { rand } from './rand.js'
 
 export class Man {
   constructor (Noise, PolyTools) {
@@ -87,7 +88,7 @@ export class Man {
     const { fli = false } = args
 
     let canv = ''
-    const seed = Math.random()
+    const seed = rand()
     const f = fli
       ? (plist) => this.flipper(plist)
       : (plist) => plist
@@ -159,7 +160,7 @@ export class Man {
     const { fli = false } = args
 
     let canv = ''
-    const seed = Math.random()
+    const seed = rand()
     const f = fli
       ? (plist) => this.flipper(plist)
       : (plist) => plist
@@ -197,11 +198,11 @@ export class Man {
         0,
         -Math.PI / 2,
         normRand(0, 0),
-        (Math.PI / 4) * Math.random(),
-        ((Math.PI * 3) / 4) * Math.random(),
+        (Math.PI / 4) * rand(),
+        ((Math.PI * 3) / 4) * rand(),
         (Math.PI * 3) / 4,
         -Math.PI / 4,
-        (-Math.PI * 3) / 4 - (Math.PI / 4) * Math.random(),
+        (-Math.PI * 3) / 4 - (Math.PI / 4) * rand(),
         -Math.PI / 4
       ]
     } = args

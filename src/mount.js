@@ -2,6 +2,7 @@ import { div } from './div.js'
 import { stroke } from './stroke.js'
 import { texture } from './texture.js'
 import { loopNoise, normRand, poly, randChoice } from './utils.js'
+import { rand } from './rand.js'
 
 export class Mount {
   constructor (Noise, Tree, Arch, PolyTools) {
@@ -75,7 +76,7 @@ export class Mount {
         ftlist[j].map((x) => [x[0] + xof, x[1] + yof]),
         {
           col: 'rgba(100,100,100,' +
-            (0.1 + Math.random() * 0.1).toFixed(3) +
+            (0.1 + rand() * 0.1).toFixed(3) +
             ')',
           wid: 1
         }, this.Noise)
@@ -101,8 +102,8 @@ export class Mount {
 
   mountain (xoff, yoff, seed = 0, args = {}) {
     const {
-      hei = 100 + Math.random() * 400,
-      wid = 400 + Math.random() * 200,
+      hei = 100 + rand() * 400,
+      wid = 400 + rand() * 200,
       tex = 200,
       veg = true,
       ret = 0,
@@ -118,7 +119,7 @@ export class Mount {
 
     let hoff = 0
     for (let j = 0; j < reso[0]; j++) {
-      hoff += (Math.random() * yoff) / 100
+      hoff += (rand() * yoff) / 100
       ptlist.push([])
       for (let i = 0; i < reso[1]; i++) {
         const x = (i / reso[1] - 0.5) * Math.PI
@@ -195,10 +196,10 @@ export class Mount {
       this.vegetate(
         (x, y) => {
           let ht = ((h + y) / h) * 70
-          ht = ht * 0.3 + Math.random() * ht * 0.7
+          ht = ht * 0.3 + rand() * ht * 0.7
           return this.Tree.tree01(x + xoff, y + yoff, {
             hei: ht,
-            wid: Math.random() * 3 + 1,
+            wid: rand() * 3 + 1,
             col: 'rgba(100,100,100,' +
             (this.Noise.noise(0.01 * x, 0.01 * y) * 0.5 * 0.3 + 0.3).toFixed(3) +
             ')'
@@ -234,8 +235,8 @@ export class Mount {
       this.vegetate(
         (x, y) => {
           let ht = ((h + y) / h) * 120
-          ht = ht * 0.5 + Math.random() * ht * 0.5
-          const bc = Math.random() * 0.1
+          ht = ht * 0.5 + rand() * ht * 0.5
+          const bc = rand() * 0.1
           const bp = 1
           return this.Tree.tree03(x + xoff, y + yoff, {
             hei: ht,
@@ -263,7 +264,7 @@ export class Mount {
           return this.Arch.arch02(x + xoff, y + yoff, seed, {
             wid: normRand(40, 70),
             sto: randChoice([1, 2, 2, 3]),
-            rot: Math.random(),
+            rot: rand(),
             sty: randChoice([1, 2, 3])
           })
         }
@@ -293,22 +294,22 @@ export class Mount {
       (x, y) =>
         this.Arch.arch03(x + xoff, y + yoff, seed, {
           sto: randChoice([5, 7]),
-          wid: 40 + Math.random() * 20
+          wid: 40 + rand() * 20
         }),
       (i, j) => i === 1 &&
       Math.abs(j - ptlist[i].length / 2) < 1 &&
-      Math.random() < 0.02,
+      rand() < 0.02,
       (veglist, i) => true,
       ptlist, canv)
 
     // BOTT ROCK
     this.vegetate(
       (x, y) => this.rock(x + xoff, y + yoff, seed, {
-        wid: 20 + Math.random() * 20,
-        hei: 20 + Math.random() * 20,
+        wid: 20 + rand() * 20,
+        hei: 20 + rand() * 20,
         sha: 2
       }),
-      (i, j) => (j === 0 || j === ptlist[i].length - 1) && Math.random() < 0.1,
+      (i, j) => (j === 0 || j === ptlist[i].length - 1) && rand() < 0.1,
       (veglist, i) => true,
       ptlist, canv)
 
@@ -317,8 +318,8 @@ export class Mount {
 
   flatMount (xoff, yoff, seed = 0, args = {}) {
     const {
-      hei = 40 + Math.random() * 400,
-      wid = 400 + Math.random() * 200,
+      hei = 40 + rand() * 400,
+      wid = 400 + rand() * 200,
       tex = 80,
       cho = 0.5
     } = args
@@ -329,7 +330,7 @@ export class Mount {
     let hoff = 0
     const flat = []
     for (let j = 0; j < reso[0]; j++) {
-      hoff += (Math.random() * yoff) / 100
+      hoff += (rand() * yoff) / 100
       ptlist.push([])
       flat.push([])
       for (let i = 0; i < reso[1]; i++) {
@@ -377,9 +378,9 @@ export class Mount {
       yof: yoff,
       tex,
       wid: 2,
-      dis: () => Math.random() > 0.5
-        ? 0.1 + 0.4 * Math.random()
-        : 0.9 - 0.4 * Math.random()
+      dis: () => rand() > 0.5
+        ? 0.1 + 0.4 * rand()
+        : 0.9 - 0.4 * rand()
     }, this.Noise)
     let grlist1 = []
     let grlist2 = []
@@ -464,14 +465,14 @@ export class Mount {
 
     const tt = randChoice([0, 0, 1, 2, 3, 4])
 
-    for (let j = 0; j < Math.random() * 5; j++) {
+    for (let j = 0; j < rand() * 5; j++) {
       canv += this.rock(
         xoff + normRand(grbd.xmin, grbd.xmax),
         yoff + (grbd.ymin + grbd.ymax) / 2 + normRand(-10, 10) + 10,
-        Math.random() * 100,
+        rand() * 100,
         {
-          wid: 10 + Math.random() * 20,
-          hei: 10 + Math.random() * 20,
+          wid: 10 + rand() * 20,
+          hei: 10 + rand() * 20,
           sha: 2
         }
       )
@@ -479,24 +480,24 @@ export class Mount {
     for (let j = 0; j < randChoice([0, 0, 1, 2]); j++) {
       const xr = xoff + normRand(grbd.xmin, grbd.xmax)
       const yr = yoff + (grbd.ymin + grbd.ymax) / 2 + normRand(-5, 5) + 20
-      for (let k = 0; k < 2 + Math.random() * 3; k++) {
+      for (let k = 0; k < 2 + rand() * 3; k++) {
         canv += this.Tree.tree08(
           xr + Math.min(Math.max(normRand(-30, 30), grbd.xmin), grbd.xmax),
           yr,
-          { hei: 60 + Math.random() * 40 }
+          { hei: 60 + rand() * 40 }
         )
       }
     }
 
     if (tt === 0) {
-      for (let j = 0; j < Math.random() * 3; j++) {
+      for (let j = 0; j < rand() * 3; j++) {
         canv += this.rock(
           xoff + normRand(grbd.xmin, grbd.xmax),
           yoff + (grbd.ymin + grbd.ymax) / 2 + normRand(-5, 5) + 20,
-          Math.random() * 100,
+          rand() * 100,
           {
-            wid: 50 + Math.random() * 20,
-            hei: 40 + Math.random() * 20,
+            wid: 50 + rand() * 20,
+            hei: 40 + rand() * 20,
             sha: 5
           }
         )
@@ -504,25 +505,25 @@ export class Mount {
     }
 
     if (tt === 1) {
-      const pmin = Math.random() * 0.5
-      const pmax = Math.random() * 0.5 + 0.5
+      const pmin = rand() * 0.5
+      const pmax = rand() * 0.5 + 0.5
       const xmin = grbd.xmin * (1 - pmin) + grbd.xmax * pmin
       const xmax = grbd.xmin * (1 - pmax) + grbd.xmax * pmax
       for (let i = xmin; i < xmax; i += 30) {
         canv += this.Tree.tree05(
           xoff + i + 20 * normRand(-1, 1),
           yoff + (grbd.ymin + grbd.ymax) / 2 + 20,
-          { hei: 100 + Math.random() * 200 }
+          { hei: 100 + rand() * 200 }
         )
       }
-      for (let j = 0; j < Math.random() * 4; j++) {
+      for (let j = 0; j < rand() * 4; j++) {
         canv += this.rock(
           xoff + normRand(grbd.xmin, grbd.xmax),
           yoff + (grbd.ymin + grbd.ymax) / 2 + normRand(-5, 5) + 20,
-          Math.random() * 100,
+          rand() * 100,
           {
-            wid: 50 + Math.random() * 20,
-            hei: 40 + Math.random() * 20,
+            wid: 50 + rand() * 20,
+            hei: 40 + rand() * 20,
             sha: 5
           }
         )
@@ -532,17 +533,17 @@ export class Mount {
         const xr = normRand(grbd.xmin, grbd.xmax)
         const yr = (grbd.ymin + grbd.ymax) / 2
         canv += this.Tree.tree04(xoff + xr, yoff + yr + 20, {})
-        for (let j = 0; j < Math.random() * 2; j++) {
+        for (let j = 0; j < rand() * 2; j++) {
           canv += this.rock(
             xoff + Math.max(
               grbd.xmin,
               Math.min(grbd.xmax, xr + normRand(-50, 50))
             ),
             yoff + yr + normRand(-5, 5) + 20,
-            j * i * Math.random() * 100,
+            j * i * rand() * 100,
             {
-              wid: 50 + Math.random() * 20,
-              hei: 40 + Math.random() * 20,
+              wid: 50 + rand() * 20,
+              hei: 40 + rand() * 20,
               sha: 5
             }
           )
@@ -553,12 +554,12 @@ export class Mount {
         canv += this.Tree.tree06(
           xoff + normRand(grbd.xmin, grbd.xmax),
           yoff + (grbd.ymin + grbd.ymax) / 2,
-          { hei: 60 + Math.random() * 60 }
+          { hei: 60 + rand() * 60 }
         )
       }
     } else if (tt === 4) {
-      const pmin = Math.random() * 0.5
-      const pmax = Math.random() * 0.5 + 0.5
+      const pmin = rand() * 0.5
+      const pmax = rand() * 0.5 + 0.5
       const xmin = grbd.xmin * (1 - pmin) + grbd.xmax * pmin
       const xmax = grbd.xmin * (1 - pmax) + grbd.xmax * pmax
       for (let i = xmin; i < xmax; i += 20) {
@@ -570,7 +571,7 @@ export class Mount {
       }
     }
 
-    for (let i = 0; i < 50 * Math.random(); i++) {
+    for (let i = 0; i < 50 * rand(); i++) {
       canv += this.Tree.tree02(
         xoff + normRand(grbd.xmin, grbd.xmax),
         yoff + normRand(grbd.ymin, grbd.ymax)
@@ -582,11 +583,11 @@ export class Mount {
       canv += this.Arch.arch01(
         xoff + normRand(grbd.xmin, grbd.xmax),
         yoff + (grbd.ymin + grbd.ymax) / 2 + 20,
-        Math.random(),
+        rand(),
         {
           wid: normRand(160, 200),
           hei: normRand(80, 100),
-          per: Math.random()
+          per: rand()
         }
       )
     }
@@ -725,10 +726,10 @@ export class Mount {
       tex,
       wid: 3,
       sha,
-      col: (x) => 'rgba(180,180,180,' + (0.3 + Math.random() * 0.3).toFixed(3) + ')',
-      dis: () => Math.random() > 0.5
-        ? 0.15 + 0.15 * Math.random()
-        : 0.85 - 0.15 * Math.random()
+      col: (x) => 'rgba(180,180,180,' + (0.3 + rand() * 0.3).toFixed(3) + ')',
+      dis: () => rand() > 0.5
+        ? 0.15 + 0.15 * rand()
+        : 0.85 - 0.15 * rand()
     }, this.Noise)
 
     return canv

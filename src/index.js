@@ -23,8 +23,6 @@ const mount = new Mount(perlin, tree, arch, polyTools)
 const mountPlanner = new MountPlanner(perlin, memory)
 const update = new Update(memory, mountPlanner, mount, perlin, arch)
 
-Math.random = () => rng.random()
-
 export default {
   update: () => update.update()
 }

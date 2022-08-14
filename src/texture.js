@@ -1,3 +1,4 @@
+import { rand } from './rand.js'
 import { stroke } from './stroke.js'
 
 export function texture (ptlist, args = {}, noise) {
@@ -10,19 +11,17 @@ export function texture (ptlist, args = {}, noise) {
     sha = 0,
     ret = 0,
     noi = (x) => 30 / x,
-    col = (_) => 'rgba(100,100,100,' + (Math.random() * 0.3).toFixed(3) + ')',
-    dis = () => Math.random() > 0.5
-      ? (1 / 3) * Math.random()
-      : (1 * 2) / 3 + (1 / 3) * Math.random()
+    col = (_) => 'rgba(100,100,100,' + (rand() * 0.3).toFixed(3) + ')',
+    dis = () => rand() > 0.5
+      ? (1 / 3) * rand()
+      : (1 * 2) / 3 + (1 / 3) * rand()
   } = args
 
   const reso = [ptlist.length, ptlist[0].length]
   const texlist = []
   for (let i = 0; i < tex; i++) {
     const mid = (dis() * reso[1]) | 0
-    // mid = (reso[1]/3+reso[1]/3*Math.random())|0
-
-    const hlen = Math.floor(Math.random() * (reso[1] * len))
+    const hlen = Math.floor(rand() * (reso[1] * len))
 
     let start = mid - hlen
     let end = mid + hlen

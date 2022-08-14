@@ -1,4 +1,5 @@
 import { loopNoise, poly } from './utils.js'
+import { rand } from './rand.js'
 
 export const blob = (x, y, args = {}, noise) => {
   const {
@@ -26,7 +27,7 @@ export const blob = (x, y, args = {}, noise) => {
   }
 
   const nslist = []
-  const n0 = Math.random() * 10
+  const n0 = rand() * 10
 
   for (let i = 0; i < reso + 1; i++) {
     nslist.push(noise.noise(i * 0.05, n0))

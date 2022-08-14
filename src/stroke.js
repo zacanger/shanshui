@@ -1,4 +1,5 @@
 import { poly } from './utils.js'
+import { rand } from './rand.js'
 
 export function stroke (ptlist, args = {}, noise) {
   const {
@@ -18,7 +19,7 @@ export function stroke (ptlist, args = {}, noise) {
   const vtxlist0 = []
   const vtxlist1 = []
   let vtxlist = []
-  const n0 = Math.random() * 10
+  const n0 = rand() * 10
 
   for (let i = 1; i < ptlist.length - 1; i++) {
     let w = wid * fun(i / ptlist.length)

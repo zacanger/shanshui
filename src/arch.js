@@ -2,6 +2,7 @@ import { div } from './div.js'
 import { stroke } from './stroke.js'
 import { texture } from './texture.js'
 import { normRand, poly, randChoice, wtrand } from './utils.js'
+import { rand } from './rand.js'
 
 export class Arch {
   constructor (Noise, PolyTools, Man) {
@@ -40,7 +41,7 @@ export class Arch {
 
     for (let i = 0; i < reso[0]; i++) {
       ptlist.push([])
-      const heir = hei + hei * 0.2 * Math.random()
+      const heir = hei + hei * 0.2 * rand()
       for (let j = 0; j < reso[1]; j++) {
         const nx = wid *
           (i / (reso[0] - 1) - 0.5) * Math.pow(j / (reso[1] - 1), 0.7)
@@ -78,7 +79,7 @@ export class Arch {
       wid: 1,
       len: 0.25,
       col: (x) => 'rgba(120,120,120,' +
-        (0.3 + Math.random() * 0.3).toFixed(3) + ')',
+        (0.3 + rand() * 0.3).toFixed(3) + ')',
       dis: () => wtrand(a => a * a),
       noi: (x) => 5
     }, this.Noise)
@@ -256,7 +257,7 @@ export class Arch {
       ptlist.push(div([[bmid, -hei - per], [wid * 0.5, -hei]], seg))
     }
     if (tra) {
-      const open = Math.floor(Math.random() * ptlist.length)
+      const open = Math.floor(rand() * ptlist.length)
       ptlist[open] = ptlist[open].slice(0, -1)
       ptlist[(open + ptlist.length) % ptlist.length] = ptlist[
         (open + ptlist.length) % ptlist.length
@@ -281,7 +282,7 @@ export class Arch {
           2
         )
 
-        ln[0][0] += (Math.random() - 0.5) * hei * 0.5
+        ln[0][0] += (rand() - 0.5) * hei * 0.5
         canv += poly(ln, {
           xof: xoff,
           yof: yoff,
@@ -463,7 +464,7 @@ export class Arch {
       per = 5
     } = args
 
-    const p = 0.4 + Math.random() * 0.2
+    const p = 0.4 + rand() * 0.2
     const h0 = hei * p
     const h1 = hei * (1 - p)
 
@@ -482,7 +483,7 @@ export class Arch {
       hei: 10,
       wid,
       per: per * 2,
-      seg: (3 + Math.random() * 3) | 0
+      seg: (3 + rand() * 3) | 0
     })
 
     const mcnt = randChoice([0, 1, 1, 2])
@@ -507,7 +508,7 @@ export class Arch {
       hei: 10,
       wid,
       per: per * 2,
-      seg: (3 + Math.random() * 3) | 0
+      seg: (3 + rand() * 3) | 0
     })
 
     return canv

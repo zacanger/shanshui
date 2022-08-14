@@ -1,3 +1,5 @@
+import { rand } from './rand.js'
+
 export const distance = (p0, p1) =>
   Math.sqrt(Math.pow(p0[0] - p1[0], 2) + Math.pow(p0[1] - p1[1], 2))
 
@@ -19,13 +21,13 @@ export const loopNoise = (noiseList) => {
   }
 }
 
-export const randChoice = (arr) => arr[Math.floor(arr.length * Math.random())]
+export const randChoice = (arr) => arr[Math.floor(arr.length * rand())]
 
-export const normRand = (m, M) => mapval(Math.random(), 0, 1, m, M)
+export const normRand = (m, M) => mapval(rand(), 0, 1, m, M)
 
 export const wtrand = (weightFunction) => {
-  const x = Math.random()
-  const y = Math.random()
+  const x = rand()
+  const y = rand()
 
   if (y < weightFunction(x)) {
     return x

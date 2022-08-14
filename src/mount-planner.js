@@ -1,3 +1,5 @@
+import { rand } from './rand.js'
+
 export class MountPlanner {
   constructor (Noise, MEM) {
     this.Noise = Noise
@@ -51,7 +53,7 @@ export class MountPlanner {
     for (let i = xmin; i < xmax; i += xstep) {
       for (j = 0; j < yr(i) * 480; j += 30) {
         if (this.locmax(i, j, ns, 2)) {
-          const xof = i + 2 * (Math.random() - 0.5) * 500
+          const xof = i + 2 * (rand() - 0.5) * 500
           const yof = j + 300
           const r = { tag: 'mount', x: xof, y: yof, h: ns(i, j) }
           const res = this.chadd(reg, r)
@@ -71,7 +73,7 @@ export class MountPlanner {
         const r = {
           tag: 'distmount',
           x: i,
-          y: 280 - Math.random() * 50,
+          y: 280 - rand() * 50,
           h: ns(i, j)
         }
         this.chadd(reg, r)
@@ -80,11 +82,11 @@ export class MountPlanner {
 
     for (let i = xmin; i < xmax; i += xstep) {
       if (this.MEM.planmtx[Math.floor(i / xstep)] === 0) {
-        if (Math.random() < 0.01) {
-          for (let j = 0; j < 4 * Math.random(); j++) {
+        if (rand() < 0.01) {
+          for (let j = 0; j < 4 * rand(); j++) {
             const r = {
               tag: 'flatmount',
-              x: i + 2 * (Math.random() - 0.5) * 700,
+              x: i + 2 * (rand() - 0.5) * 700,
               y: 700 - j * 50,
               h: ns(i, j)
             }
@@ -95,8 +97,8 @@ export class MountPlanner {
     }
 
     for (let i = xmin; i < xmax; i += xstep) {
-      if (Math.random() < 0.2) {
-        const r = { tag: 'boat', x: i, y: 300 + Math.random() * 390 }
+      if (rand() < 0.2) {
+        const r = { tag: 'boat', x: i, y: 300 + rand() * 390 }
         this.chadd(reg, r, 400)
       }
     }

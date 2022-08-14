@@ -9,6 +9,7 @@ import {
   randChoice,
   randGaussian
 } from './utils.js'
+import { rand } from './rand.js'
 
 export class Tree {
   constructor (Noise, PolyTools) {
@@ -43,12 +44,12 @@ export class Tree {
       if (i >= reso / 4) {
         for (let j = 0; j < (reso - i) / 5; j++) {
           canv += blob(
-            nx + (Math.random() - 0.5) * wid * 1.2 * (reso - i),
-            ny + (Math.random() - 0.5) * wid,
+            nx + (rand() - 0.5) * wid * 1.2 * (reso - i),
+            ny + (rand() - 0.5) * wid,
             {
-              len: Math.random() * 20 * (reso - i) * 0.2 + 10,
-              wid: Math.random() * 6 + 3,
-              ang: ((Math.random() - 0.5) * Math.PI) / 6,
+              len: rand() * 20 * (reso - i) * 0.2 + 10,
+              wid: rand() * 6 + 3,
+              ang: ((rand() - 0.5) * Math.PI) / 6,
               col: 'rgba(' +
                 leafcol[0] +
                 ',' +
@@ -56,7 +57,7 @@ export class Tree {
                 ',' +
                 leafcol[2] +
                 ',' +
-                (Math.random() * 0.2 + parseFloat(leafcol[3])).toFixed(1) +
+                (rand() * 0.2 + parseFloat(leafcol[3])).toFixed(1) +
                 ')'
             },
             this.Noise
@@ -92,8 +93,8 @@ export class Tree {
               ? Math.pow(Math.sin(x * Math.PI) * x, 0.5)
               : -Math.pow(Math.sin((x - 2) * Math.PI * (x - 2)), 0.5)
           },
-          wid: Math.random() * wid * 0.75 + wid * 0.5,
-          len: Math.random() * hei * 0.75 + hei * 0.5,
+          wid: rand() * wid * 0.75 + wid * 0.5,
+          len: rand() * hei * 0.75 + hei * 0.5,
           col
         },
         this.Noise
@@ -133,14 +134,14 @@ export class Tree {
           const shape = function (x) {
             return Math.log(50 * x + 1) / 3.95
           }
-          const ox = Math.random() * wid * 2 * shape((reso - i) / reso)
+          const ox = rand() * wid * 2 * shape((reso - i) / reso)
           blobs += blob(
             nx + ox * randChoice([-1, 1]),
-            ny + (Math.random() - 0.5) * wid * 2,
+            ny + (rand() - 0.5) * wid * 2,
             {
               len: ox * 2,
-              wid: Math.random() * 6 + 3,
-              ang: ((Math.random() - 0.5) * Math.PI) / 6,
+              wid: rand() * 6 + 3,
+              ang: ((rand() - 0.5) * Math.PI) / 6,
               col: 'rgba(' +
                 leafcol[0] +
                 ',' +
@@ -148,7 +149,7 @@ export class Tree {
                 ',' +
                 leafcol[2] +
                 ',' +
-                (Math.random() * 0.2 + parseFloat(leafcol[3])).toFixed(3) +
+                (rand() * 0.2 + parseFloat(leafcol[3])).toFixed(3) +
                 ')'
             },
             this.Noise
@@ -186,7 +187,7 @@ export class Tree {
     const g = 3
 
     for (let i = 0; i < g; i++) {
-      a0 += (ben / 2 + (Math.random() * ben) / 2) * randChoice([-1, 1])
+      a0 += (ben / 2 + (rand() * ben) / 2) * randChoice([-1, 1])
       nx += (Math.cos(a0) * hei) / g
       ny -= (Math.sin(a0) * hei) / g
       tlist.push([nx, ny])
@@ -225,7 +226,7 @@ export class Tree {
 
       let b = 0
       if (p === 0) {
-        b = Math.random() * wid
+        b = rand() * wid
       }
 
       const nw = wid * (((tl - i) / tl) * 0.5 + 0.5)
@@ -256,10 +257,10 @@ export class Tree {
     let canv = ''
     const twlist = []
     const tl = 10
-    const hs = Math.random() * 0.5 + 0.5
+    const hs = rand() * 0.5 + 0.5
     const fun2 = (x) => -1 / Math.pow(x / tl + 1, 5) + 1
     const tfun = randChoice([fun2])
-    const a0 = ((Math.random() * Math.PI) / 6) * dir + ang
+    const a0 = ((rand() * Math.PI) / 6) * dir + ang
 
     for (let i = 0; i < tl; i++) {
       const mx = dir * tfun(i / tl) * 50 * sca * hs
@@ -290,9 +291,9 @@ export class Tree {
             nx + tx + Math.cos(ang) * dj * wid,
             ny + ty + (Math.sin(ang) * dj - lea[1] / (dep + 1)) * wid,
             {
-              wid: (6 + 3 * Math.random()) * wid,
-              len: (15 + 12 * Math.random()) * wid,
-              ang: ang / 2 + Math.PI / 2 + Math.PI * 0.2 * (Math.random() - 0.5),
+              wid: (6 + 3 * rand()) * wid,
+              len: (15 + 12 * rand()) * wid,
+              ang: ang / 2 + Math.PI / 2 + Math.PI * 0.2 * (rand() - 0.5),
               col: 'rgba(100,100,100,' + (0.5 + dep * 0.2).toFixed(3) + ')',
               fun: (x) => x <= 1
                 ? Math.pow(Math.sin(x * Math.PI) * x, 0.5)
@@ -312,7 +313,7 @@ export class Tree {
   }
 
   bark (x, y, wid, ang) {
-    const len = 10 + 10 * Math.random()
+    const len = 10 + 10 * rand()
     const noi = 0.5
     const fun = (x) => x <= 1
       ? Math.pow(Math.sin(x * Math.PI), 0.5)
@@ -330,7 +331,7 @@ export class Tree {
       lalist.push([l, a])
     }
     const nslist = []
-    const n0 = Math.random() * 10
+    const n0 = rand() * 10
     for (let i = 0; i < reso + 1; i++) {
       nslist.push(this.Noise.noise(i * 0.05, n0))
     }
@@ -343,7 +344,7 @@ export class Tree {
       const ny = y + Math.sin(lalist[i][1] + ang) * lalist[i][0] * ns
       brklist.push([nx, ny])
     }
-    const fr = Math.random()
+    const fr = rand()
     canv += stroke(brklist, {
       wid: 0.8,
       noi: 0,
@@ -367,10 +368,10 @@ export class Tree {
         trlist[1][i][1] - trlist[1][i - 1][1],
         trlist[1][i][0] - trlist[1][i - 1][0]
       )
-      const p = Math.random()
+      const p = rand()
       const nx = trlist[0][i][0] * (1 - p) + trlist[1][i][0] * p
       const ny = trlist[0][i][1] * (1 - p) + trlist[1][i][1] * p
-      if (Math.random() < 0.2) {
+      if (rand() < 0.2) {
         canv += blob(nx + x, ny + y, {
           noi: 1,
           len: 15,
@@ -387,8 +388,8 @@ export class Tree {
         )
       }
 
-      if (Math.random() < 0.05) {
-        const jl = Math.random() * 2 + 2
+      if (rand() < 0.05) {
+        const jl = rand() * 2 + 2
         const xya = randChoice([
           [trlist[0][i][0], trlist[0][i][1], a0],
           [trlist[1][i][0], trlist[1][i][1], a1]
@@ -399,7 +400,7 @@ export class Tree {
             xya[1] + y + Math.sin(xya[2]) * (j - jl / 2) * 4,
             {
               wid: 4,
-              len: 4 + 6 * Math.random(),
+              len: 4 + 6 * rand(),
               ang: a0 + Math.PI / 2,
               col: 'rgba(100,100,100,0.6)'
             }, this.Noise
@@ -410,7 +411,7 @@ export class Tree {
     const trflist = trlist[0].concat(trlist[1].slice().reverse())
     const rglist = [[]]
     for (let i = 0; i < trflist.length; i++) {
-      if (Math.random() < 0.5) {
+      if (rand() < 0.5) {
         rglist.push([])
       } else {
         rglist[rglist.length - 1].push(trflist[i])
@@ -453,12 +454,12 @@ export class Tree {
       if (
         (i >= trlist.length * 0.3 &&
           i <= trlist.length * 0.7 &&
-          Math.random() < 0.1) ||
+          rand() < 0.1) ||
         i === trlist.length / 2 - 1
       ) {
         const ba = Math.PI * 0.2 - Math.PI * 1.4 * ((i > trlist.length / 2) ? 1 : 0)
         const brlist = this.branch({
-          hei: hei * (Math.random() + 1) * 0.3,
+          hei: hei * (rand() + 1) * 0.3,
           wid: wid * 0.5,
           ang: ba
         })
@@ -469,7 +470,7 @@ export class Tree {
         txcanv += this.barkify(x, y, [brlist[0].map(foff), brlist[1].map(foff)])
 
         for (let j = 0; j < brlist[0].length; j++) {
-          if (Math.random() < 0.2 || j === brlist[0].length - 1) {
+          if (rand() < 0.2 || j === brlist[0].length - 1) {
             twcanv += this.twig(
               brlist[0][j][0] + trlist[i][0] + x,
               brlist[0][j][1] + trlist[i][1] + y,
@@ -498,7 +499,7 @@ export class Tree {
     canv += stroke(
       trmlist.map((v) => [v[0] + x, v[1] + y]),
       {
-        col: 'rgba(100,100,100,' + (0.4 + Math.random() * 0.1).toFixed(3) + ')',
+        col: 'rgba(100,100,100,' + (0.4 + rand() * 0.1).toFixed(3) + ')',
         wid: 2.5,
         fun: (x) => Math.sin(1),
         noi: 0.9,
@@ -533,12 +534,12 @@ export class Tree {
       const p = Math.abs(i - trlist.length * 0.5) / (trlist.length * 0.5)
       if ((i >= trlist.length * 0.2 &&
         i <= trlist.length * 0.8 &&
-        i % 3 === 0 && Math.random() > p) ||
+        i % 3 === 0 && rand() > p) ||
         i === trlist.length / 2 - 1) {
-        const bar = Math.random() * 0.2
+        const bar = rand() * 0.2
         const ba = -bar * Math.PI - (1 - bar * 2) * Math.PI * ((i > trlist.length / 2) ? 1 : 0)
         const brlist = this.branch({
-          hei: hei * (0.3 * p - Math.random() * 0.05),
+          hei: hei * (0.3 * p - rand() * 0.05),
           wid: wid * 0.5,
           ang: ba,
           ben: 0.5
@@ -579,7 +580,7 @@ export class Tree {
     canv += stroke(
       trmlist.map((v) => [v[0] + x, v[1] + y]),
       {
-        col: 'rgba(100,100,100,' + (0.4 + Math.random() * 0.1).toFixed(3) + ')',
+        col: 'rgba(100,100,100,' + (0.4 + rand() * 0.1).toFixed(3) + ')',
         wid: 2.5,
         fun: (x) => Math.sin(1),
         noi: 0.9,
@@ -615,14 +616,14 @@ export class Tree {
 
     for (let i = 0; i < trlist.length; i++) {
       if (
-        ((Math.random() < 0.025 &&
+        ((rand() < 0.025 &&
           i >= trlist.length * 0.2 &&
           i <= trlist.length * 0.8) ||
           i === ((trlist.length / 2) | 0) - 1 ||
           i === ((trlist.length / 2) | 0) + 1) &&
         dep > 0
       ) {
-        const bar = 0.02 + Math.random() * 0.08
+        const bar = 0.02 + rand() * 0.08
         const ba = bar * Math.PI - bar * 2 * Math.PI * ((i > trlist.length / 2) ? 1 : 0)
 
         const brlist = this.fracTree(
@@ -630,7 +631,7 @@ export class Tree {
           trlist[i][1] + yoff,
           dep - 1,
           {
-            hei: hei * (0.7 + Math.random() * 0.2),
+            hei: hei * (0.7 + rand() * 0.2),
             wid: wid * 0.6,
             ang: ang + ba,
             ben: 0.55
@@ -639,13 +640,13 @@ export class Tree {
         )
 
         for (let j = 0; j < brlist.length; j++) {
-          if (Math.random() < 0.03) {
+          if (rand() < 0.03) {
             twcanv += this.twig(
               brlist[j][0] + trlist[i][0] + xoff,
               brlist[j][1] + trlist[i][1] + yoff,
               2,
               {
-                ang: ba * (Math.random() * 0.5 + 0.75),
+                ang: ba * (rand() * 0.5 + 0.75),
                 sca: 0.3,
                 dir: ba > 0 ? 1 : -1,
                 lea: [false, 0]
@@ -691,7 +692,7 @@ export class Tree {
     canv += stroke(
       trmlist.map((v) => [v[0] + x, v[1] + y]),
       {
-        col: 'rgba(100,100,100,' + (0.4 + Math.random() * 0.1).toFixed(3) + ')',
+        col: 'rgba(100,100,100,' + (0.4 + rand() * 0.1).toFixed(3) + ')',
         wid: 2.5,
         fun: (_) => Math.sin(1),
         noi: 0.9,
@@ -733,12 +734,12 @@ export class Tree {
       if (i >= reso / 4) {
         for (let j = 0; j < 1; j++) {
           const bpl = blob(
-            nx + (Math.random() - 0.5) * wid * 1.2 * (reso - i) * 0.5,
-            ny + (Math.random() - 0.5) * wid * 0.5,
+            nx + (rand() - 0.5) * wid * 1.2 * (reso - i) * 0.5,
+            ny + (rand() - 0.5) * wid * 0.5,
             {
-              len: Math.random() * 50 + 20,
-              wid: Math.random() * 12 + 12,
-              ang: (-Math.random() * Math.PI) / 6,
+              len: rand() * 50 + 20,
+              wid: rand() * 12 + 12,
+              ang: (-rand() * Math.PI) / 6,
               col: 'rgba(' +
                 leafcol[0] +
                 ',' +
@@ -826,7 +827,7 @@ export class Tree {
 
     if (dep !== 0) {
       const nben = ben + randChoice([-1, 1]) * Math.PI * 0.001 * dep * dep
-      if (Math.random() < 0.5) {
+      if (rand() < 0.5) {
         tcanv += this.fracTree2(ept[0], ept[1], dep - 1, {
           ang: ang +
             ben +
@@ -880,12 +881,12 @@ export class Tree {
     const trlist = trlist2[0].concat(trlist2[1].reverse())
 
     for (let i = 0; i < trlist.length; i++) {
-      if (Math.random() < 0.2) {
+      if (rand() < 0.2) {
         twcanv += this.fracTree2(
           x + trlist[i][0],
           y + trlist[i][1],
-          Math.floor(4 * Math.random()),
-          { hei: 20, ang: -Math.PI / 2 - ang * Math.random() }
+          Math.floor(4 * rand()),
+          { hei: 20, ang: -Math.PI / 2 - ang * rand() }
         )
       } else if (i === Math.floor(trlist.length / 2)) {
         twcanv += this.fracTree2(x + trlist[i][0], y + trlist[i][1], 3, {
@@ -900,7 +901,7 @@ export class Tree {
     canv += stroke(
       trlist.map((v) => [v[0] + x, v[1] + y]),
       {
-        col: 'rgba(100,100,100,' + (0.6 + Math.random() * 0.1).toFixed(3) + ')',
+        col: 'rgba(100,100,100,' + (0.6 + rand() * 0.1).toFixed(3) + ')',
         wid: 2.5,
         fun: (_) => Math.sin(1),
         noi: 0.9,

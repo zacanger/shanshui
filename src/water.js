@@ -1,4 +1,5 @@
 import { stroke } from './stroke.js'
+import { rand } from './rand.js'
 
 export function water (xoff, yoff, seed, Noise, args = {}) {
   const { hei = 2, len = 800, clu = 10 } = args
@@ -8,9 +9,9 @@ export function water (xoff, yoff, seed, Noise, args = {}) {
   let yk = 0
   for (let i = 0; i < clu; i++) {
     ptlist.push([])
-    const xk = (Math.random() - 0.5) * (len / 8)
-    yk += Math.random() * 5
-    const lk = len / 4 + Math.random() * (len / 4)
+    const xk = (rand() - 0.5) * (len / 8)
+    yk += rand() * 5
+    const lk = len / 4 + rand() * (len / 4)
     const reso = 5
     for (let j = -lk; j < lk; j += reso) {
       ptlist[ptlist.length - 1].push([
@@ -26,7 +27,7 @@ export function water (xoff, yoff, seed, Noise, args = {}) {
         return [x[0] + xoff, x[1] + yoff]
       }),
       {
-        col: 'rgba(100,100,100,' + (0.3 + Math.random() * 0.3).toFixed(3) + ')',
+        col: 'rgba(100,100,100,' + (0.3 + rand() * 0.3).toFixed(3) + ')',
         wid: 1
       },
       Noise
