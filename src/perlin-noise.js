@@ -1,3 +1,29 @@
+const InitializePerlinArray = (size, rng) => {
+  const perlin = new Array(size + 1)
+  for (let i = 0; i < size + 1; i++) {
+    perlin[i] = rng()
+  }
+  return perlin
+}
+
+// https://en.wikipedia.org/wiki/Linear_congruential_generator
+class LinearCongruentialGenerator {
+  constructor (rng, seedVal) {
+    const seed = (seedVal || rng.next() * this.m) >>> 0
+    this.seed = seed
+    this.z = seed
+    this.m = 4294967296
+    this.a = 1664525
+    this.c = 1013904223
+  }
+
+  // Returns a value from [0,1]
+  rand () {
+    this.z = (this.a * this.z + this.c) % this.m
+    return this.z / this.m
+  }
+}
+
 // https://raw.githubusercontent.com/processing/p5.js/master/src/math/noise.js
 export class PerlinNoise {
   constructor (rng) {
@@ -38,7 +64,8 @@ export class PerlinNoise {
     let xf = x - xi
     let yf = y - yi
     let zf = z - zi
-    let rxf, ryf
+    let rxf
+    let ryf
     let r = 0
     let ampl = 0.5
     let n1, n2, n3
@@ -94,31 +121,5 @@ export class PerlinNoise {
   noiseSeed (seed) {
     const lcg = new LinearCongruentialGenerator(this.rng, seed)
     this.perlin = InitializePerlinArray(this.PERLIN_SIZE, () => lcg.rand())
-  }
-}
-
-function InitializePerlinArray (size, rng) {
-  const perlin = new Array(size + 1)
-  for (let i = 0; i < size + 1; i++) {
-    perlin[i] = rng()
-  }
-  return perlin
-}
-
-// https://en.wikipedia.org/wiki/Linear_congruential_generator
-class LinearCongruentialGenerator {
-  constructor (rng, seedVal) {
-    const seed = (seedVal || rng.next() * this.m) >>> 0
-    this.seed = seed
-    this.z = seed
-    this.m = 4294967296
-    this.a = 1664525
-    this.c = 1013904223
-  }
-
-  // Returns a value from [0,1]
-  rand () {
-    this.z = (this.a * this.z + this.c) % this.m
-    return this.z / this.m
   }
 }
