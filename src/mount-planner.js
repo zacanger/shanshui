@@ -38,9 +38,7 @@ export class MountPlanner {
     const reg = []
     const samp = 0.03
     const ns = (x, y) => Math.max(this.Noise.noise(x * samp) - 0.55, 0) * 2
-    const yr = (x) => {
-      return this.Noise.noise(x * 0.01, Math.PI)
-    }
+    const yr = (x) => this.Noise.noise(x * 0.01, Math.PI)
 
     const xstep = 5
     const mwid = 200
