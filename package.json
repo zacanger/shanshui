@@ -1,7 +1,7 @@
 {
   "name": "shanshui-cli",
   "description": "Generate mountain and water paintings",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "type": "module",
   "author": {
     "name": "Zac Anger",
