@@ -51,14 +51,14 @@ export class Tree {
               wid: rand() * 6 + 3,
               ang: ((rand() - 0.5) * Math.PI) / 6,
               col: 'rgba(' +
-                leafcol[0] +
-                ',' +
-                leafcol[1] +
-                ',' +
-                leafcol[2] +
-                ',' +
-                (rand() * 0.2 + parseFloat(leafcol[3])).toFixed(1) +
-                ')'
+              leafcol[0] +
+              ',' +
+              leafcol[1] +
+              ',' +
+              leafcol[2] +
+              ',' +
+              (rand() * 0.2 + parseFloat(leafcol[3])).toFixed(1) +
+              ')'
             },
             this.Noise
           )
@@ -68,8 +68,8 @@ export class Tree {
       line2.push([nx + (nslist[i][1] - 0.5) * wid + wid / 2, ny])
     }
     canv +=
-            poly(line1, { fil: 'none', str: col, wid: 1.5 }) +
-            poly(line2, { fil: 'none', str: col, wid: 1.5 })
+      poly(line1, { fil: 'none', str: col, wid: 1.5 }) +
+      poly(line2, { fil: 'none', str: col, wid: 1.5 })
     return canv
   }
 
@@ -118,9 +118,9 @@ export class Tree {
     }
 
     const leafcol =
-    col.includes('rgba(')
-      ? col.replace('rgba(', '').replace(')', '').split(',')
-      : ['100', '100', '100', '0.5']
+      col.includes('rgba(')
+        ? col.replace('rgba(', '').replace(')', '').split(',')
+        : ['100', '100', '100', '0.5']
 
     let canv = ''
     let blobs = ''
@@ -143,14 +143,14 @@ export class Tree {
               wid: rand() * 6 + 3,
               ang: ((rand() - 0.5) * Math.PI) / 6,
               col: 'rgba(' +
-                leafcol[0] +
-                ',' +
-                leafcol[1] +
-                ',' +
-                leafcol[2] +
-                ',' +
-                (rand() * 0.2 + parseFloat(leafcol[3])).toFixed(3) +
-                ')'
+              leafcol[0] +
+              ',' +
+              leafcol[1] +
+              ',' +
+              leafcol[2] +
+              ',' +
+              (rand() * 0.2 + parseFloat(leafcol[3])).toFixed(3) +
+              ')'
             },
             this.Noise
           )
@@ -168,6 +168,343 @@ export class Tree {
     const lc = line1.concat(line2.reverse())
     canv += poly(lc, { fil: 'white', str: col, wid: 1.5 })
     canv += blobs
+    return canv
+  }
+
+  tree04 (x, y, args = {}) {
+    const {
+      hei = 300,
+      wid = 6,
+      col = 'rgba(100,100,100,0.5)'
+    } = args
+
+    let canv = ''
+    let txcanv = ''
+    let twcanv = ''
+
+    const trlist2 = this.branch({ hei, wid, ang: -Math.PI / 2 })
+    txcanv += this.barkify(x, y, trlist2)
+    const trlist = trlist2[0].concat(trlist2[1].reverse())
+
+    let trmlist = []
+
+    for (let i = 0; i < trlist.length; i++) {
+      if (
+        (i >= trlist.length * 0.3 &&
+          i <= trlist.length * 0.7 &&
+          rand() < 0.1) ||
+        i === trlist.length / 2 - 1
+      ) {
+        const ba = Math.PI * 0.2 - Math.PI * 1.4 * ((i > trlist.length / 2) ? 1 : 0)
+        const brlist = this.branch({
+          hei: hei * (rand() + 1) * 0.3,
+          wid: wid * 0.5,
+          ang: ba
+        })
+
+        brlist[0].splice(0, 1)
+        brlist[1].splice(0, 1)
+        const foff = (v) => [v[0] + trlist[i][0], v[1] + trlist[i][1]]
+        txcanv += this.barkify(x, y, [brlist[0].map(foff), brlist[1].map(foff)])
+
+        for (let j = 0; j < brlist[0].length; j++) {
+          if (rand() < 0.2 || j === brlist[0].length - 1) {
+            twcanv += this.twig(
+              brlist[0][j][0] + trlist[i][0] + x,
+              brlist[0][j][1] + trlist[i][1] + y,
+              1,
+              {
+                wid: hei / 300,
+                ang: ba > -Math.PI / 2 ? ba : ba + Math.PI,
+                sca: (0.5 * hei) / 300,
+                dir: ba > -Math.PI / 2 ? 1 : -1
+              }
+            )
+          }
+        }
+        const brlist2 = brlist[0].concat(brlist[1].reverse())
+        trmlist = trmlist.concat(
+          brlist2.map((v) => [v[0] + trlist[i][0], v[1] + trlist[i][1]])
+        )
+      } else {
+        trmlist.push(trlist[i])
+      }
+    }
+    canv += poly(trmlist, { xof: x, yof: y, fil: 'white', str: col, wid: 0 })
+
+    trmlist.splice(0, 1)
+    trmlist.splice(trmlist.length - 1, 1)
+    canv += stroke(
+      trmlist.map((v) => [v[0] + x, v[1] + y]),
+      {
+        col: 'rgba(100,100,100,' + (0.4 + rand() * 0.1).toFixed(3) + ')',
+        wid: 2.5,
+        fun: (x) => Math.sin(1),
+        noi: 0.9,
+        out: 0
+      },
+      this.Noise
+    )
+
+    canv += txcanv
+    canv += twcanv
+    return canv
+  }
+
+  tree05 (x, y, args = {}) {
+    const {
+      hei = 300,
+      wid = 5,
+      col = 'rgba(100,100,100,0.5)'
+    } = args
+
+    let canv = ''
+    let txcanv = ''
+    let twcanv = ''
+
+    const trlist2 = this.branch({ hei, wid, ang: -Math.PI / 2, ben: 0 })
+    txcanv += this.barkify(x, y, trlist2)
+    const trlist = trlist2[0].concat(trlist2[1].reverse())
+
+    let trmlist = []
+
+    for (let i = 0; i < trlist.length; i++) {
+      const p = Math.abs(i - trlist.length * 0.5) / (trlist.length * 0.5)
+      if ((i >= trlist.length * 0.2 &&
+        i <= trlist.length * 0.8 &&
+        i % 3 === 0 && rand() > p) ||
+        i === trlist.length / 2 - 1) {
+        const bar = rand() * 0.2
+        const ba = -bar * Math.PI - (1 - bar * 2) * Math.PI * ((i > trlist.length / 2) ? 1 : 0)
+        const brlist = this.branch({
+          hei: hei * (0.3 * p - rand() * 0.05),
+          wid: wid * 0.5,
+          ang: ba,
+          ben: 0.5
+        })
+
+        brlist[0].splice(0, 1)
+        brlist[1].splice(0, 1)
+
+        for (let j = 0; j < brlist[0].length; j++) {
+          if (j % 20 === 0 || j === brlist[0].length - 1) {
+            twcanv += this.twig(
+              brlist[0][j][0] + trlist[i][0] + x,
+              brlist[0][j][1] + trlist[i][1] + y,
+              0,
+              {
+                wid: hei / 300,
+                ang: ba > -Math.PI / 2 ? ba : ba + Math.PI,
+                sca: (0.2 * hei) / 300,
+                dir: ba > -Math.PI / 2 ? 1 : -1,
+                lea: [true, 5]
+              }
+            )
+          }
+        }
+        const brlist2 = brlist[0].concat(brlist[1].reverse())
+        trmlist = trmlist.concat(
+          brlist2.map((v) => [v[0] + trlist[i][0], v[1] + trlist[i][1]])
+        )
+      } else {
+        trmlist.push(trlist[i])
+      }
+    }
+
+    canv += poly(trmlist, { xof: x, yof: y, fil: 'white', str: col, wid: 0 })
+
+    trmlist.splice(0, 1)
+    trmlist.splice(trmlist.length - 1, 1)
+    canv += stroke(
+      trmlist.map((v) => [v[0] + x, v[1] + y]),
+      {
+        col: 'rgba(100,100,100,' + (0.4 + rand() * 0.1).toFixed(3) + ')',
+        wid: 2.5,
+        fun: (x) => Math.sin(1),
+        noi: 0.9,
+        out: 0
+      },
+      this.Noise
+    )
+
+    canv += txcanv
+    canv += twcanv
+    return canv
+  }
+
+  tree06 (x, y, args = {}) {
+    const {
+      hei = 100,
+      wid = 6,
+      col = 'rgba(100,100,100,0.5)'
+    } = args
+
+    let canv = ''
+    const txcanv = ''
+    const twcanv = ''
+
+    const trmlist = this.fracTree(x, y, 3, {
+      hei,
+      wid,
+      ang: -Math.PI / 2,
+      ben: 0
+    },
+    txcanv,
+    twcanv)
+
+    canv += poly(trmlist, { xof: x, yof: y, fil: 'white', str: col, wid: 0 })
+
+    trmlist.splice(0, 1)
+    trmlist.splice(trmlist.length - 1, 1)
+    canv += stroke(
+      trmlist.map((v) => [v[0] + x, v[1] + y]),
+      {
+        col: 'rgba(100,100,100,' + (0.4 + rand() * 0.1).toFixed(3) + ')',
+        wid: 2.5,
+        fun: (_) => Math.sin(1),
+        noi: 0.9,
+        out: 0
+      },
+      this.Noise
+    )
+
+    canv += txcanv
+    canv += twcanv
+    return canv
+  }
+
+  tree07 (x, y, args = {}) {
+    const {
+      hei = 60,
+      wid = 4,
+      ben = (x) => Math.sqrt(x) * 0.2,
+      col = 'rgba(100,100,100,1)'
+    } = args
+
+    const reso = 10
+    const nslist = []
+    for (let i = 0; i < reso; i++) {
+      nslist.push([this.Noise.noise(i * 0.5), this.Noise.noise(i * 0.5, 0.5)])
+    }
+
+    const leafcol = col.includes('rgba(')
+      ? col.replace('rgba(', '').replace(')', '').split(',')
+      : ['100', '100', '100', '1']
+
+    let canv = ''
+    const line1 = []
+    const line2 = []
+    let T = []
+    for (let i = 0; i < reso; i++) {
+      const nx = x + ben(i / reso) * 100
+      const ny = y - (i * hei) / reso
+      if (i >= reso / 4) {
+        for (let j = 0; j < 1; j++) {
+          const bpl = blob(
+            nx + (rand() - 0.5) * wid * 1.2 * (reso - i) * 0.5,
+            ny + (rand() - 0.5) * wid * 0.5,
+            {
+              len: rand() * 50 + 20,
+              wid: rand() * 12 + 12,
+              ang: (-rand() * Math.PI) / 6,
+              col: 'rgba(' +
+              leafcol[0] +
+              ',' +
+              leafcol[1] +
+              ',' +
+              leafcol[2] +
+              ',' +
+              parseFloat(leafcol[3]).toFixed(3) +
+              ')',
+              fun: (x) => x <= 1
+                ? 2.75 * x * Math.pow(1 - x, 1 / 1.8)
+                : 2.75 * (x - 2) * Math.pow(x - 1, 1 / 1.8),
+              ret: 1
+            },
+            this.Noise
+          )
+
+          T = T.concat(
+            this.PolyTools.triangulate(bpl, {
+              area: 50,
+              convex: true,
+              optimize: false
+            })
+          )
+        }
+      }
+      line1.push([nx + (nslist[i][0] - 0.5) * wid - wid / 2, ny])
+      line2.push([nx + (nslist[i][1] - 0.5) * wid + wid / 2, ny])
+    }
+
+    T = this.PolyTools.triangulate(line1.concat(line2.reverse()), {
+      area: 50,
+      convex: true,
+      optimize: true
+    }).concat(T)
+
+    for (let k = 0; k < T.length; k++) {
+      const m = this.PolyTools.midPt(T[k])
+      const c = (this.Noise.noise(m[0] * 0.02, m[1] * 0.02) * 200 + 50) | 0
+      const co = 'rgba(' + c + ',' + c + ',' + c + ',0.8)'
+      canv += poly(T[k], { fil: co, str: co, wid: 0 })
+    }
+    return canv
+  }
+
+  tree08 (x, y, args = {}) {
+    const {
+      hei = 80,
+      wid = 1,
+      col = 'rgba(100,100,100,0.5)'
+    } = args
+
+    let canv = ''
+    const txcanv = ''
+    let twcanv = ''
+
+    const ang = normRand(-1, 1) * Math.PI * 0.2
+
+    const trlist2 = this.branch({
+      hei,
+      wid,
+      ang: -Math.PI / 2 + ang,
+      ben: Math.PI * 0.2,
+      det: hei / 20
+    })
+
+    const trlist = trlist2[0].concat(trlist2[1].reverse())
+
+    for (let i = 0; i < trlist.length; i++) {
+      if (rand() < 0.2) {
+        twcanv += this.fracTree2(
+          x + trlist[i][0],
+          y + trlist[i][1],
+          Math.floor(4 * rand()),
+          { hei: 20, ang: -Math.PI / 2 - ang * rand() }
+        )
+      } else if (i === Math.floor(trlist.length / 2)) {
+        twcanv += this.fracTree2(x + trlist[i][0], y + trlist[i][1], 3, {
+          hei: 25,
+          ang: -Math.PI / 2 + ang
+        })
+      }
+    }
+
+    canv += poly(trlist, { xof: x, yof: y, fil: 'white', str: col, wid: 0 })
+
+    canv += stroke(
+      trlist.map((v) => [v[0] + x, v[1] + y]),
+      {
+        col: 'rgba(100,100,100,' + (0.6 + rand() * 0.1).toFixed(3) + ')',
+        wid: 2.5,
+        fun: (_) => Math.sin(1),
+        noi: 0.9,
+        out: 0
+      }, this.Noise)
+
+    canv += txcanv
+    canv += twcanv
     return canv
   }
 
@@ -433,167 +770,6 @@ export class Tree {
     return canv
   }
 
-  tree04 (x, y, args = {}) {
-    const {
-      hei = 300,
-      wid = 6,
-      col = 'rgba(100,100,100,0.5)'
-    } = args
-
-    let canv = ''
-    let txcanv = ''
-    let twcanv = ''
-
-    const trlist2 = this.branch({ hei, wid, ang: -Math.PI / 2 })
-    txcanv += this.barkify(x, y, trlist2)
-    const trlist = trlist2[0].concat(trlist2[1].reverse())
-
-    let trmlist = []
-
-    for (let i = 0; i < trlist.length; i++) {
-      if (
-        (i >= trlist.length * 0.3 &&
-          i <= trlist.length * 0.7 &&
-          rand() < 0.1) ||
-        i === trlist.length / 2 - 1
-      ) {
-        const ba = Math.PI * 0.2 - Math.PI * 1.4 * ((i > trlist.length / 2) ? 1 : 0)
-        const brlist = this.branch({
-          hei: hei * (rand() + 1) * 0.3,
-          wid: wid * 0.5,
-          ang: ba
-        })
-
-        brlist[0].splice(0, 1)
-        brlist[1].splice(0, 1)
-        const foff = (v) => [v[0] + trlist[i][0], v[1] + trlist[i][1]]
-        txcanv += this.barkify(x, y, [brlist[0].map(foff), brlist[1].map(foff)])
-
-        for (let j = 0; j < brlist[0].length; j++) {
-          if (rand() < 0.2 || j === brlist[0].length - 1) {
-            twcanv += this.twig(
-              brlist[0][j][0] + trlist[i][0] + x,
-              brlist[0][j][1] + trlist[i][1] + y,
-              1,
-              {
-                wid: hei / 300,
-                ang: ba > -Math.PI / 2 ? ba : ba + Math.PI,
-                sca: (0.5 * hei) / 300,
-                dir: ba > -Math.PI / 2 ? 1 : -1
-              }
-            )
-          }
-        }
-        const brlist2 = brlist[0].concat(brlist[1].reverse())
-        trmlist = trmlist.concat(
-          brlist2.map((v) => [v[0] + trlist[i][0], v[1] + trlist[i][1]])
-        )
-      } else {
-        trmlist.push(trlist[i])
-      }
-    }
-    canv += poly(trmlist, { xof: x, yof: y, fil: 'white', str: col, wid: 0 })
-
-    trmlist.splice(0, 1)
-    trmlist.splice(trmlist.length - 1, 1)
-    canv += stroke(
-      trmlist.map((v) => [v[0] + x, v[1] + y]),
-      {
-        col: 'rgba(100,100,100,' + (0.4 + rand() * 0.1).toFixed(3) + ')',
-        wid: 2.5,
-        fun: (x) => Math.sin(1),
-        noi: 0.9,
-        out: 0
-      },
-      this.Noise
-    )
-
-    canv += txcanv
-    canv += twcanv
-    return canv
-  }
-
-  tree05 (x, y, args = {}) {
-    const {
-      hei = 300,
-      wid = 5,
-      col = 'rgba(100,100,100,0.5)'
-    } = args
-
-    let canv = ''
-    let txcanv = ''
-    let twcanv = ''
-
-    const trlist2 = this.branch({ hei, wid, ang: -Math.PI / 2, ben: 0 })
-    txcanv += this.barkify(x, y, trlist2)
-    const trlist = trlist2[0].concat(trlist2[1].reverse())
-
-    let trmlist = []
-
-    for (let i = 0; i < trlist.length; i++) {
-      const p = Math.abs(i - trlist.length * 0.5) / (trlist.length * 0.5)
-      if ((i >= trlist.length * 0.2 &&
-        i <= trlist.length * 0.8 &&
-        i % 3 === 0 && rand() > p) ||
-        i === trlist.length / 2 - 1) {
-        const bar = rand() * 0.2
-        const ba = -bar * Math.PI - (1 - bar * 2) * Math.PI * ((i > trlist.length / 2) ? 1 : 0)
-        const brlist = this.branch({
-          hei: hei * (0.3 * p - rand() * 0.05),
-          wid: wid * 0.5,
-          ang: ba,
-          ben: 0.5
-        })
-
-        brlist[0].splice(0, 1)
-        brlist[1].splice(0, 1)
-
-        for (let j = 0; j < brlist[0].length; j++) {
-          if (j % 20 === 0 || j === brlist[0].length - 1) {
-            twcanv += this.twig(
-              brlist[0][j][0] + trlist[i][0] + x,
-              brlist[0][j][1] + trlist[i][1] + y,
-              0,
-              {
-                wid: hei / 300,
-                ang: ba > -Math.PI / 2 ? ba : ba + Math.PI,
-                sca: (0.2 * hei) / 300,
-                dir: ba > -Math.PI / 2 ? 1 : -1,
-                lea: [true, 5]
-              }
-            )
-          }
-        }
-        const brlist2 = brlist[0].concat(brlist[1].reverse())
-        trmlist = trmlist.concat(
-          brlist2.map((v) => [v[0] + trlist[i][0], v[1] + trlist[i][1]])
-        )
-      } else {
-        trmlist.push(trlist[i])
-      }
-    }
-
-    canv += poly(trmlist, { xof: x, yof: y, fil: 'white', str: col, wid: 0 })
-
-    trmlist.splice(0, 1)
-    trmlist.splice(trmlist.length - 1, 1)
-    canv += stroke(
-      trmlist.map((v) => [v[0] + x, v[1] + y]),
-      {
-        col: 'rgba(100,100,100,' + (0.4 + rand() * 0.1).toFixed(3) + ')',
-        wid: 2.5,
-        fun: (x) => Math.sin(1),
-        noi: 0.9,
-        out: 0
-      },
-      this.Noise
-    )
-
-    canv += txcanv
-    canv += twcanv
-    return canv
-  }
-
   fracTree (xoff, yoff, dep, args = {}, txcanv, twcanv) {
     const {
       hei = 300,
@@ -665,126 +841,6 @@ export class Tree {
     return trmlist
   }
 
-  tree06 (x, y, args = {}) {
-    const {
-      hei = 100,
-      wid = 6,
-      col = 'rgba(100,100,100,0.5)'
-    } = args
-
-    let canv = ''
-    const txcanv = ''
-    const twcanv = ''
-
-    const trmlist = this.fracTree(x, y, 3, {
-      hei,
-      wid,
-      ang: -Math.PI / 2,
-      ben: 0
-    },
-    txcanv,
-    twcanv)
-
-    canv += poly(trmlist, { xof: x, yof: y, fil: 'white', str: col, wid: 0 })
-
-    trmlist.splice(0, 1)
-    trmlist.splice(trmlist.length - 1, 1)
-    canv += stroke(
-      trmlist.map((v) => [v[0] + x, v[1] + y]),
-      {
-        col: 'rgba(100,100,100,' + (0.4 + rand() * 0.1).toFixed(3) + ')',
-        wid: 2.5,
-        fun: (_) => Math.sin(1),
-        noi: 0.9,
-        out: 0
-      },
-      this.Noise
-    )
-
-    canv += txcanv
-    canv += twcanv
-    return canv
-  }
-
-  tree07 (x, y, args = {}) {
-    const {
-      hei = 60,
-      wid = 4,
-      ben = (x) => Math.sqrt(x) * 0.2,
-      col = 'rgba(100,100,100,1)'
-    } = args
-
-    const reso = 10
-    const nslist = []
-    for (let i = 0; i < reso; i++) {
-      nslist.push([this.Noise.noise(i * 0.5), this.Noise.noise(i * 0.5, 0.5)])
-    }
-
-    const leafcol = col.includes('rgba(')
-      ? col.replace('rgba(', '').replace(')', '').split(',')
-      : ['100', '100', '100', '1']
-
-    let canv = ''
-    const line1 = []
-    const line2 = []
-    let T = []
-    for (let i = 0; i < reso; i++) {
-      const nx = x + ben(i / reso) * 100
-      const ny = y - (i * hei) / reso
-      if (i >= reso / 4) {
-        for (let j = 0; j < 1; j++) {
-          const bpl = blob(
-            nx + (rand() - 0.5) * wid * 1.2 * (reso - i) * 0.5,
-            ny + (rand() - 0.5) * wid * 0.5,
-            {
-              len: rand() * 50 + 20,
-              wid: rand() * 12 + 12,
-              ang: (-rand() * Math.PI) / 6,
-              col: 'rgba(' +
-                leafcol[0] +
-                ',' +
-                leafcol[1] +
-                ',' +
-                leafcol[2] +
-                ',' +
-                parseFloat(leafcol[3]).toFixed(3) +
-                ')',
-              fun: (x) => x <= 1
-                ? 2.75 * x * Math.pow(1 - x, 1 / 1.8)
-                : 2.75 * (x - 2) * Math.pow(x - 1, 1 / 1.8),
-              ret: 1
-            },
-            this.Noise
-          )
-
-          T = T.concat(
-            this.PolyTools.triangulate(bpl, {
-              area: 50,
-              convex: true,
-              optimize: false
-            })
-          )
-        }
-      }
-      line1.push([nx + (nslist[i][0] - 0.5) * wid - wid / 2, ny])
-      line2.push([nx + (nslist[i][1] - 0.5) * wid + wid / 2, ny])
-    }
-
-    T = this.PolyTools.triangulate(line1.concat(line2.reverse()), {
-      area: 50,
-      convex: true,
-      optimize: true
-    }).concat(T)
-
-    for (let k = 0; k < T.length; k++) {
-      const m = this.PolyTools.midPt(T[k])
-      const c = (this.Noise.noise(m[0] * 0.02, m[1] * 0.02) * 200 + 50) | 0
-      const co = 'rgba(' + c + ',' + c + ',' + c + ',0.8)'
-      canv += poly(T[k], { fil: co, str: co, wid: 0 })
-    }
-    return canv
-  }
-
   fracTree2 (xoff, yoff, dep, args = {}) {
     const {
       ang = -Math.PI / 2,
@@ -830,19 +886,19 @@ export class Tree {
       if (rand() < 0.5) {
         tcanv += this.fracTree2(ept[0], ept[1], dep - 1, {
           ang: ang +
-            ben +
-            Math.PI *
-            randChoice([normRand(-1, 0.5), normRand(0.5, 1)]) *
-            0.2,
+          ben +
+          Math.PI *
+          randChoice([normRand(-1, 0.5), normRand(0.5, 1)]) *
+          0.2,
           len: len * normRand(0.8, 0.9),
           ben: nben
         })
         tcanv += this.fracTree2(ept[0], ept[1], dep - 1, {
           ang: ang +
-            ben +
-            Math.PI *
-            randChoice([normRand(-1, -0.5), normRand(0.5, 1)]) *
-            0.2,
+          ben +
+          Math.PI *
+          randChoice([normRand(-1, -0.5), normRand(0.5, 1)]) *
+          0.2,
           len: len * normRand(0.8, 0.9),
           ben: nben
         })
@@ -855,61 +911,5 @@ export class Tree {
       }
     }
     return tcanv
-  }
-
-  tree08 (x, y, args = {}) {
-    const {
-      hei = 80,
-      wid = 1,
-      col = 'rgba(100,100,100,0.5)'
-    } = args
-
-    let canv = ''
-    const txcanv = ''
-    let twcanv = ''
-
-    const ang = normRand(-1, 1) * Math.PI * 0.2
-
-    const trlist2 = this.branch({
-      hei,
-      wid,
-      ang: -Math.PI / 2 + ang,
-      ben: Math.PI * 0.2,
-      det: hei / 20
-    })
-
-    const trlist = trlist2[0].concat(trlist2[1].reverse())
-
-    for (let i = 0; i < trlist.length; i++) {
-      if (rand() < 0.2) {
-        twcanv += this.fracTree2(
-          x + trlist[i][0],
-          y + trlist[i][1],
-          Math.floor(4 * rand()),
-          { hei: 20, ang: -Math.PI / 2 - ang * rand() }
-        )
-      } else if (i === Math.floor(trlist.length / 2)) {
-        twcanv += this.fracTree2(x + trlist[i][0], y + trlist[i][1], 3, {
-          hei: 25,
-          ang: -Math.PI / 2 + ang
-        })
-      }
-    }
-
-    canv += poly(trlist, { xof: x, yof: y, fil: 'white', str: col, wid: 0 })
-
-    canv += stroke(
-      trlist.map((v) => [v[0] + x, v[1] + y]),
-      {
-        col: 'rgba(100,100,100,' + (0.6 + rand() * 0.1).toFixed(3) + ')',
-        wid: 2.5,
-        fun: (_) => Math.sin(1),
-        noi: 0.9,
-        out: 0
-      }, this.Noise)
-
-    canv += txcanv
-    canv += twcanv
-    return canv
   }
 }
