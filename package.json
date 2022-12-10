@@ -32,10 +32,6 @@
     "art",
     "chinese"
   ],
-  "funding": {
-    "type": "ko-fi",
-    "url": "https://ko-fi.com/zacanger"
-  },
   "devDependencies": {
     "sortpack": "2.3.0",
     "standard": "17.0.0"
