@@ -5,6 +5,8 @@ shan-shui-inf](https://github.com/LingDong-/shan-shui-inf) for the command line,
 in Node. Heavily based on [Kuba Karpierz's
 rewrite](https://github.com/admiral-akk/shan-shui-reloaded).
 
+[Donate](https://ko-fi.com/zacanger)
+
 --------
 
 ## Installation
